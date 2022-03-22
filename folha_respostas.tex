@@ -1,0 +1,65 @@
+\documentclass{article}
+\usepackage{tikz}
+\usepackage{subfig}
+\usepackage[margin=1.0in]{geometry}
+\pagestyle{empty}
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%  Alterar o tamanho da fonte:
+%    1. Trocar o parametro de font=\Large apos o \begin{tikzpicture}
+%    2. Trocar o \Large apos o \node at (0,0).
+%    3. Corrigir o espacamento alterando o fator multiplicativo em
+%       ({\position * 1.5}, 0)
+%  
+%  Parametros possiveis: \tiny, \scriptsize, \footnotesize, \small,
+%  \normalsize, \large, \Large, \LARGE, \huge
+%  
+%  Adaptado de: https://gist.github.com/kazyka/7a69e540b17690286505522355e8819c
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{tikzpicture}[font=\Large]
+    \foreach \line in {1,2,...,10} {
+        \begin{scope}[yshift=-\line cm]
+            \foreach \letter/\position in {A/1, B/2, C/3, D/4, E/5} { 
+                \node at (0,0) {\Large\textbf{\line}};
+                \node[draw,circle,inner sep=1pt] at ({\position * 1.5},0) {\letter};
+            }
+        \end{scope}
+    }
+%\end{tikzpicture}\hfill
+%\begin{tikzpicture}[font=\small]
+%    \foreach \line in {1,2,...,10} {
+%        \begin{scope}[yshift=-\line cm]
+%            \foreach \letter/\position in {A/1, B/2, C/3, D/4, E/5} { 
+%                \node at (0,0) {\normalsize\textbf{\line}};
+%                \node[draw,circle,inner sep=1pt] at ({\position * 0.5},0) {\letter};
+%            }
+%        \end{scope}
+%    }
+%\end{tikzpicture}
+%\vfill
+%\begin{tikzpicture}[font=\small]
+%    \foreach \line in {1,2,...,10} {
+%        \begin{scope}[yshift=-\line cm]
+%            \foreach \letter/\position in {A/1, B/2, C/3, D/4, E/5} { 
+%                \node at (0,0) {\normalsize\textbf{\line}};
+%                \node[draw,circle,inner sep=1pt] at ({\position * 0.5},0) {\letter};
+%            }
+%        \end{scope}
+%    }
+%\end{tikzpicture}\hfill
+%\begin{tikzpicture}[font=\small]
+%    \foreach \line in {1,2,...,10} {
+%        \begin{scope}[yshift=-\line cm]
+%            \foreach \letter/\position in {A/1, B/2, C/3, D/4, E/5} { 
+%                \node at (0,0) {\normalsize\textbf{\line}};
+%                \node[draw,circle,inner sep=1pt] at ({\position * 0.5},0) {\letter};
+%            }
+%        \end{scope}
+%    }
+\end{tikzpicture}
+\end{document}

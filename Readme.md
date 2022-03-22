@@ -6,6 +6,9 @@ Criado a partir do guia disponível [aqui](https://pyimagesearch.com/2016/10/03/
 Em desenvolvimento usando python 3.9 e OpenCV 4.0
 
 # Set up das bibliotecas
-Guia de instalação de referência disponível [aqui](https://pyimagesearch.com/2018/08/15/how-to-install-opencv-4-on-ubuntu/)
+Guia de instalação de referência disponível [aqui](https://pyimagesearch.com/2018/08/15/how-to-install-opencv-4-on-ubuntu/).
 
+# Documentos extras
+Folha de respostas usada como referência disponível no arquivo
 
+> folha\_respostas.tex
