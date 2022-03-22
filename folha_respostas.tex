@@ -21,12 +21,12 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-\begin{tikzpicture}[font=\Large]
+\begin{tikzpicture}[font=\huge]
     \foreach \line in {1,2,...,10} {
         \begin{scope}[yshift=-\line cm]
             \foreach \letter/\position in {A/1, B/2, C/3, D/4, E/5} { 
-                \node at (0,0) {\Large\textbf{\line}};
-                \node[draw,circle,inner sep=1pt] at ({\position * 1.5},0) {\letter};
+                \node at (0,0) {\huge\textbf{\line}};
+                \node[draw,circle,inner sep=2pt] at ({\position * 2.5},0) {\letter};
             }
         \end{scope}
     }
