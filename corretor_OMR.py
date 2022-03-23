@@ -14,6 +14,30 @@ def printImagem(imagem):
     cv2.destroyAllWindows()
 # -----------------------------------------------------
 
+# Funcao de preProcessamento do arquivo - teste
+def preProcessa(file, ret_val='edged'):
+    '''
+    ret_val: tipo de imagem retornada
+             'edged'  : imagem apos todo o pre-processamento
+             'imagem' : imagem pura apos aberta
+             'gray'   : imagem em escala de cinza
+             'blurred': imagem apos grayscale e GaussianBlur
+    '''
+    imagem = cv2.imread(file)
+    gray = cv2.cvtColor(imagem, cv2.COLOR_BGR2GRAY)
+    blurred = cv2.GaussianBlur(gray, (5, 5), 0)
+    edged = cv2.Canny(blurred, 75, 200)
+    
+    if ret_val == 'imagem':
+        return imagem
+    elif ret_val == 'gray':
+        return gray
+    elif ret_val == 'blurred':
+        return blurred
+    elif ret_val == 'edged':
+        return edged
+# -----------------------------------------------------
+
 # Por enquanto a leitura é feita a partir de uma imagem estática
 # passada por parametro.
 # Sugestao: acrescentar a imagem de leitura diretamente a partir 
@@ -56,7 +80,7 @@ edged = cv2.Canny(blurred, 75, 200)
 
 
 # print teste
-printImagem(edged)
+#printImagem(edged)
 
 ######################################
 #
@@ -103,3 +127,14 @@ if len(cnts) > 0:     # se ao menos um contorno foi encontrado
 # cinza, para uma visao perpendicular do papel
 paper = four_point_transform(image, docCnt.reshape(4, 2))
 warped = four_point_transform(gray, docCnt.reshape(4, 2))
+
+######################################
+#
+# 4. Segmentacao - Separacao entre fundo e texto
+#
+######################################
+
+# aplica metodo Otsu para threshold 
+# transformar em uma imagem binaria (0 - bg; 1 - fg)
+thresh = cv2.threshold(warped, 0, 255, 
+             cv2.THRESH_BINARY_INV | cv2.THRESH_OTSU)[1]
