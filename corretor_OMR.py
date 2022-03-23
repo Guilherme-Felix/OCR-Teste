@@ -58,4 +58,48 @@ edged = cv2.Canny(blurred, 75, 200)
 # print teste
 printImagem(edged)
 
+######################################
+#
+# 3. Encontrar os contornos da folha
+#
+######################################
 
+# Busca todos os contornos presentes na imagem (da folha, das alternativas
+# dos valores) e, em seguida, ordena e filtra os limites da folha.
+
+cnts = cv2.findContours(edged.copy(), cv2.RETR_EXTERNAL,
+        cv2.CHAIN_APPROX_SIMPLE)
+
+cnts = imutils.grab_contours(cnts)
+
+# contorno da folha de papel
+docCnt = None
+
+# Ordena os contornos e tenta encontrar a folha de papel
+if len(cnts) > 0:     # se ao menos um contorno foi encontrado
+    cnts = sorted(cnts, key=cv2.contourArea, reverse=True)
+    
+    # percorre o vetor de contornos em ordem decrescente de area
+    for c in cnts:
+        # determina o perimetro do contorno
+        peri = cv2.arcLength(c, True)
+        epsilon = 0.02 * peri
+
+        # faz uma aproximacao da curva original 'c' por um 
+        # poligono com menos vertices.
+        # epsilon e' a precisao da aproximacao. Nesse caso, 2% do
+        # perimetro da curva.
+        # Como temos uma folha com varias circunferencias, 
+        # a aproximacao de maior area e com 4 vértices deve ser
+        # a folha de papel.
+        
+        approx = cv2.approxPolyDP(c, epsilon, True)
+        
+        if len(approx) == 4:
+            docCnt = approx
+            break
+
+# aplica transformacao de perspectiva na imagem original e na
+# cinza, para uma visao perpendicular do papel
+paper = four_point_transform(image, docCnt.reshape(4, 2))
+warped = four_point_transform(gray, docCnt.reshape(4, 2))
